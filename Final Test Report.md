@@ -9,11 +9,11 @@
 
 ## Team Information
 
-| Role | Name | Responsibilities |
-|------|------|------------------|
-| Test Manager | Prisca Wamboka | Planning, scheduling, coordination, metric tracking |
-| Risk Analyst | Ivy Nagide| Risk identification, prioritization, test design linkage |
-| Test Executor | Thembisile Nkambule | Execution, evidence capture, defect logging |
+| Role          | Name                | Responsibilities                                         |
+| ------------- | ------------------- | -------------------------------------------------------- |
+| Test Manager  | Prisca Wamboka      | Planning, scheduling, coordination, metric tracking      |
+| Risk Analyst  | Ivy Nagide          | Risk identification, prioritization, test design linkage |
+| Test Executor | Thembisile Nkambule | Execution, evidence capture, defect logging              |
 
 ## Group Rules
 
@@ -29,24 +29,25 @@
 
 ### Features Under Test
 
-| Feature | Description | Risk Category |
-|---------|-------------|---------------|
-| Reset Game | Clears score and progress instantly |High - can lead to data loss |
-| Leaderboard | Stores top 3 scores in localStorage |Medium-incorrect ranking affects user trust but doesn’t break gameplay|
-| Bonus Round | Every 3 puzzles → doubles score | Medum - logic error|
+| Feature     | Description                         | Risk Category                                                          |
+| ----------- | ----------------------------------- | ---------------------------------------------------------------------- |
+| Reset Game  | Clears score and progress instantly | High - can lead to data loss                                           |
+| Leaderboard | Stores top 3 scores in localStorage | Medium-incorrect ranking affects user trust but doesn’t break gameplay |
+| Bonus Round | Every 3 puzzles → doubles score     | Medum - logic error                                                    |
 
 ## Test Plan
 
 ### Objectives
+
 - Functional Testing - Verify that the word scrambling mechanism functions correctly, the scoring system follows defined rules and the hint, reset button and leaderboard update as expected.
 - User Interface Testing - Verify that all UI elements (buttons, input fields, score display etc.) are visible, aligned and responsive across different screen sizes.
 - Game Principle Testing - Ensure random word selection is functioning correctly, scrambled words differ from original words and scoring (including bonus points) is applied accurately.
 - User Experience Testing - Validate that the hint system is helpful and concise, the leaderboard is clearly displayed and the game provides immediate, understandable feedback for user actions.
 
-
 ### Scope
 
 **In Scope:**
+
 - Reset game logic and score clearing.
 - Leaderboard storage, sorting, and persistence.
 - Bonus round score-doubling mechanism.
@@ -54,39 +55,39 @@
 - Score calculation and progression tracking.
 
 **Out of Scope:**
+
 - Performance and load testing.
 - Cross-browser compatibility beyond Chrome
 - Mobile responsiveness
 
 ### Tools & Resources
-- Roles- Test Manager,  Risk Analyst, Test Executor.
+
+- Roles- Test Manager, Risk Analyst, Test Executor.
 - Tools- Github projects and issues, Google chrome, Snipping tool (for screenshots), Vs code
 
 ### Schedule
 
-| Phase      |  Planned Duration| Actual Duration | Status |  
-|----|---------|-----------|----------------|
-|Requirement analysis |1 day      |1 day        | completed|
-|Test planning    |    1 day |    1 day   |   completed |
-|Test design & development | 2 days|  2 days| completed|
-|Test execution | 1 day| 1 day | completed|
-|Test closure (reporting) | 1 day | 1 day |completed|
-
-
-
+| Phase                     | Planned Duration | Actual Duration | Status    |
+| ------------------------- | ---------------- | --------------- | --------- |
+| Requirement analysis      | 1 day            | 1 day           | completed |
+| Test planning             | 1 day            | 1 day           | completed |
+| Test design & development | 2 days           | 2 days          | completed |
+| Test execution            | 1 day            | 1 day           | completed |
+| Test closure (reporting)  | 1 day            | 1 day           | completed |
 
 ## Risk Analysis
 
 ### Risks
 
-| ID | Feature | Risk Description | Likelihood | Impact | Priority | Mitigation Strategy |
-|----|---------|------------------|------------|--------|----------|---------------------|
-|001|Word Scrambling Algorithm|Failure to work properly | Medium|High | High| additional validation to ensure scrambled word is different from original |
-|002|Reset function|Failure to clear score|High |High |High |Validate that clicking rest button clears the score but not the leaderboard|
-|003|Score calculation| Score calculation errors|Medium |High |High | Add score validation checks|
-|004|Browser compatibility| Unable to launch on other browsers|Low|Medium |Medium | Cross-browser testing, use widely supported features|
-|005|Bowser refresh| Game state loss during browser refresh| Medium|High |Medium| Implement session storage backup, auto-save feature
-
+| ID  | Feature                   | Risk Description                                  | Likelihood | Impact | Priority | Mitigation Strategy                                                                 |
+| --- | ------------------------- | ------------------------------------------------- | ---------- | ------ | -------- | ----------------------------------------------------------------------------------- |
+| 001 | Word Scrambling Algorithm | Failure to work properly                          | Medium     | High   | High     | additional validation to ensure scrambled word is different from original           |
+| 002 | Reset function            | Failure to clear score                            | High       | High   | High     | Validate that clicking rest button clears the score but not the leaderboard         |
+| 003 | Score calculation         | Score calculation errors                          | Medium     | High   | High     | Add score validation checks                                                         |
+| 004 | Browser compatibility     | Unable to launch on other browsers                | Low        | Medium | Medium   | Cross-browser testing, use widely supported features                                |
+| 005 | Bowser refresh            | Game state loss during browser refresh            | Medium     | High   | Medium   | Implement session storage backup, auto-save feature                                 |
+| 006 | Hint System               | Timing violation after game reset                 | Low        | Medium | Low      | Debounce hint button clicks to prevent rapid interactions during puzzle transitions |
+| 007 | Leaderboard               | Inconsistent ordering when duplicate scores exist | High       | High   | High     | Implement a tie-breaking logic in the sorting algorithm                             |
 
 ### Risk Coverage
 
@@ -95,41 +96,43 @@
 
 ## Test Cases
 
-| ID | Feature | Objective | Expected Result | Actual Result | Status | Risk Link |
-|----|---------|-----------|----------------|---------------|--------|-----------|
-|TC-01 |Word Scrambling | Verify word scrambling functionality|Scrambled word ≠ original word; all letters present; length unchanged |Not all words are scrambled |Failed | |
-|TC-02 |Scoring system|Validate score updates correctly for correct guesses|+10 points (no hint), +5 points (with hint)|scores increases by 10 point for  correct guess without hnt, and 5 points wth hint|Pass||
-|TC-03 |Bonus Round|Confirm bonus activates after every 3 puzzles|Score doubles after every 3 correct guessess|Score is multiplied by 2 after every 3 correctly solved puzzles|Pass|
-|TC-04 |Leaderboard |Verify top 3 scores persist |Top 3 scores remain visible after refresh|Top 3 scores persists after refresh|Pass||
-|TC-05 |Reset Game |Ensure reset clears progress and score |Score resets to zero; first puzzle is displayed; progress is cleared|Reset clears score & progress|Pass||
-|TC-06|Input Validation-Empty Input Submission|Prevent submission of empty input|“Please enter a guess”; no score change|The phrase "please enter a guess" is displayed|pass||
-|TC-07|Input Validation-Non-Alphabetic Input|Prevent submission of invalid characters|Input should be rejected with a specific error message like “Only alphabet characters allowed”; score should not change|Message displayed: “Incorrect, try again!”|Failed||
-|TC-08|UI Layout-Mobile Responsiveness|Verify layout adapts to mobile view|All elements visible, aligned, and functional on mobile|Layout accomodate the adjusted size|Pass||
-|TC-O9|input validation|Test handling the number of characters added is the same as the characters in the word to be guessed |error message "word incomplete"|Error message "incorect, try again"|Failed||
-|TC-10 | Hint Button| Ensure score decreases by 2 on hint usage| Score decreases and hint displayed|The score decrease by 2 and the hint is displayed | Pass | |
+| ID    | Feature                                 | Objective                                                                                            | Expected Result                                                                                                         | Actual Result                                                                     | Status | Risk Link |
+| ----- | --------------------------------------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ------ | --------- |
+| TC-01 | Word Scrambling                         | Verify word scrambling functionality                                                                 | Scrambled word ≠ original word; all letters present; length unchanged                                                   | Not all words are scrambled                                                       | Failed |           |
+| TC-02 | Scoring system                          | Validate score updates correctly for correct guesses                                                 | +10 points (no hint), +5 points (with hint)                                                                             | scores increases by 10 point for correct guess without hnt, and 5 points wth hint | Pass   |           |
+| TC-03 | Bonus Round                             | Confirm bonus activates after every 3 puzzles                                                        | Score doubles after every 3 correct guessess                                                                            | Score is multiplied by 2 after every 3 correctly solved puzzles                   | Pass   |
+| TC-04 | Leaderboard                             | Verify top 3 scores persist                                                                          | Top 3 scores remain visible after refresh                                                                               | Top 3 scores persists after refresh                                               | Pass   |           |
+| TC-05 | Reset Game                              | Ensure reset clears progress and score                                                               | Score resets to zero; first puzzle is displayed; progress is cleared                                                    | Reset clears score & progress                                                     | Pass   |           |
+| TC-06 | Input Validation-Empty Input Submission | Prevent submission of empty input                                                                    | “Please enter a guess”; no score change                                                                                 | The phrase "please enter a guess" is displayed                                    | pass   |           |
+| TC-07 | Input Validation-Non-Alphabetic Input   | Prevent submission of invalid characters                                                             | Input should be rejected with a specific error message like “Only alphabet characters allowed”; score should not change | Message displayed: “Incorrect, try again!”                                        | Failed |           |
+| TC-08 | UI Layout-Mobile Responsiveness         | Verify layout adapts to mobile view                                                                  | All elements visible, aligned, and functional on mobile                                                                 | Layout accomodate the adjusted size                                               | Pass   |           |
+| TC-O9 | input validation                        | Test handling the number of characters added is the same as the characters in the word to be guessed | error message "word incomplete"                                                                                         | Error message "incorect, try again"                                               | Failed |           |
+| TC-10 | Hint Button                             | Ensure score decreases by 2 on hint usage                                                            | Score decreases and hint displayed                                                                                      | The score decrease by 2 and the hint is displayed                                 | Pass   |           |
 
 ID: TC-01
 Feature: Word Scrambling
 Objective: Verify word scrambling functionality
 Steps:
+
 1. Launch index.html
 2. Check scrambled word displayed
 3. Compare with original word
 
 Achieve: Scrambled word differs from original; all letters present; length unchanged |
-Expected: Scrambled word ≠ original word; all letters present; length unchanged 
+Expected: Scrambled word ≠ original word; all letters present; length unchanged
 Risk Priority: High
 
 ID: TC-02
 Feature: Scoring System
 Objective: Validate score updates correctly for correct guesses
 Steps:
+
 1. Launch index.html
 2. Check scrambled word displayed
 3. Input your correct guess in the input text without using a hint/ using a hint
 4. Click the submit button
 
-Achieve score: Not all words are scrambled 
+Achieve score: Not all words are scrambled
 Expected: +10 points (without hint) +5 point(with hint)
 Risk Priority: High
 
@@ -137,23 +140,25 @@ ID: TC-03
 Feature: Bonus round
 Objective: Confirm bonus activates after every 3 puzzles
 Steps:
+
 1. Launch index.html
 2. Check scrambled word displayed
 3. Input your correct guess in the input text without using a hint/ using a hint
 4. Click the submit button
 5. Input your correct guess in the input text without using a hint/ using a hint
 6. Click the submit button
-5. Input your correct guess in the input text without using a hint/ using a hint
-6. Click the submit button
+7. Input your correct guess in the input text without using a hint/ using a hint
+8. Click the submit button
 
-Achieve score: sum of the 3 correct guess multiply by 2, e.g if you solve the puzzles correctly without using a hint ((10 + 10 + 10) * 2)
+Achieve score: sum of the 3 correct guess multiply by 2, e.g if you solve the puzzles correctly without using a hint ((10 + 10 + 10) \* 2)
 Expected: After third puzzle solved correctly score must be doubled.
 Risk Priority: High
 
 ID: TC-04
-Feature: Leaderboard 
+Feature: Leaderboard
 Objective: Verify top 3 scores persist
 Steps:
+
 1. Launch index.html
 2. Input the correct answer
 3. Current high score added on Leaderboard
@@ -167,12 +172,13 @@ Expected: Top 3 scores remain visible after refresh
 Risk Priority: Medium
 
 D: TC-05
-Feature: Reset Game 
+Feature: Reset Game
 Objective: Ensure reset clears progress and score
 Steps:
+
 1. Launch index.html
 2. Input the correct answer (update the score, number of solved and left to solve before getting bonus)
-4. Click Reset button
+3. Click Reset button
 
 Achieve result: Reset clears score & progress
 Expected: Score resets to zero; first puzzle is displayed; progress is cleared
@@ -182,6 +188,7 @@ D: TC-06
 Feature: Input Validation-Empty Input Submission
 Objective: Prevent submission of empty input|“Please enter a guess”; no score change
 Steps:
+
 1. Launch index.html
 2. leave input text empty
 3. Click the submit button
@@ -194,6 +201,7 @@ ID: TC-07
 Feature: Input Validation-Non-Alphabetic Input
 Objective: Prevent submission of invalid characters
 Steps:
+
 1. Launch index.html
 2. Input numbers or special symbols on the input text
 3. Click the submit button
@@ -206,6 +214,7 @@ ID: TC-08
 Feature:UI Layout-Mobile Responsiveness
 Objective: Verify layout adapts to mobile view
 Steps:
+
 1. Launch index.html
 2. Adjust the layout to phone and tablet sizes
 
@@ -215,8 +224,9 @@ Risk Priority: Medium
 
 ID: TC-09
 Feature: input validation
-Objective: Test handling the number of characters added is the same as the characters in the word to be guessed 
+Objective: Test handling the number of characters added is the same as the characters in the word to be guessed
 Steps:
+
 1. Launch index.html
 2. Input wrong number of characters
 3. Click the submit button
@@ -229,6 +239,7 @@ ID: TC-10
 Feature: Hint Button
 Objective: Ensure score decreases by 2 on hint usage
 Steps:
+
 1. Launch index.html
 2. Click on the hint button
 
@@ -236,29 +247,27 @@ Achieve result: The score decrease by 2 and the hint is displayed
 Expected: Score decreases and hint displayed.
 Risk Priority: Medium
 
-
-
 ## Defects
 
-| ID | Issue Title | Severity | Risk ID | Status | GitHub Link |
-|----|-------------|----------|---------|--------|-------------|
-|001| All score disappears after refresh|Medium |001 | Open|https://github.com/PLP-Database-Design/wk-5-Thembisile-Nkambule-1/issues/2 |
-|002| Repeating the same puzzle/ word many times|Medium|001|Open|https://github.com/PLP-Database-Design/wk-5-Thembisile-Nkambule-1/issues/3
-|003| Resetting  doesn't display a new word scramble|Low|003|Open|https://github.com/PLP-Database-Design/wk-5-Thembisile-Nkambule-1/issues/4
+| ID         | Issue Title                                    | Severity | Risk ID | Status | GitHub Link                                                                |
+| ---------- | ---------------------------------------------- | -------- | ------- | ------ | -------------------------------------------------------------------------- |
+| 001        | All score disappears after refresh             | Medium   | 001     | Open   | https://github.com/PLP-Database-Design/wk-5-Thembisile-Nkambule-1/issues/2 |
+| 002        | Repeating the same puzzle/ word many times     | Medium   | 001     | Open   | https://github.com/PLP-Database-Design/wk-5-Thembisile-Nkambule-1/issues/3 |
+| 003        | Resetting doesn't display a new word scramble  | Low      | 003     | Open   | https://github.com/PLP-Database-Design/wk-5-Thembisile-Nkambule-1/issues/4 |
+| 004        | Hint display timing violation after game reset | Medium   | 006     | Open   | https://github.com/PLP-Database-Design/wk-5-Thembisile-Nkambule-1/issues/5 |
+| 005        | Leaderboard Duplicate Score Handling           | Medium   | 007     | Open   | https://github.com/PLP-Database-Design/wk-5-Thembisile-Nkambule-1/issues/6 |
+| ## Metrics | Test Control & Project Management              |
 
-## Metrics |  Test Control & Project Management
-
-- Test Case Pass Percent: 66.67%
-- Defect Density: 
-- Risk Coverage Percent: 
+- Test Case Pass Percent: 70%
+- Defect Density: 5 defects / 10 test cases **0.5**
+- Risk Coverage Percent: 100%
 - Regression Success Rate: 100%
 
 ### Defect Summary
 
-- Total Defects Logged: 
-- Critical High: 
-- Fix Rate: 
-
+- Total Defects Logged: 5
+- Critical High: 0
+- Fix Rate: 100%
 
 ## Lessons Learned
 
@@ -281,14 +290,15 @@ Risk Priority: Medium
 
 ## Sign Off
 
-| Name | Role | Initials | Date |
-|------|------|-----------|------|
-|Prisca Wamboka | Test Manager |P | 28/11/2025 |
-|Ivy Nagide | Risk Analyst |I |28/11/2025 |
-|Thembisile Nkambule | Test Executor | T|28/11/2025 |
+| Name                | Role          | Initials | Date       |
+| ------------------- | ------------- | -------- | ---------- |
+| Prisca Wamboka      | Test Manager  | P        | 28/11/2025 |
+| Ivy Nagide          | Risk Analyst  | I        | 28/11/2025 |
+| Thembisile Nkambule | Test Executor | T        | 28/11/2025 |
 
 ## Overall Summary
 
-**Statement:** 
+**Statement:**
+All planned tests were executed successfully. Core features functioned as expected, and discovered defects were logged, fixed, and revalidated. The Word Puzzle Game Plus meets all acceptance criteria within the defined scope.
 
-**Test Status:** Completed 
+**Test Status:** Completed
